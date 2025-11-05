@@ -25,7 +25,6 @@ jobs:
 
       - name: Initialize Gradle project
         run: gradle init --type basic --dsl groovy
-
       - name: Build APK (debug)
         run: |
           mkdir -p app/build/outputs/apk/debug
