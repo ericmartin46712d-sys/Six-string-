@@ -24,7 +24,7 @@ jobs:
         run: sudo apt-get install gradle -y
 
       - name: Initialize Gradle project
-        run: gradle init --type basic --dsl groovy
+        run: gradle init --type basic --dsl 
       - name: Build APK (debug)
         run: |
           mkdir -p app/build/outputs/apk/debug
