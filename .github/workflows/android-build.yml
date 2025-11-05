@@ -23,15 +23,11 @@ jobs:
       - name: Install Gradle
         run: sudo apt-get install gradle -y
 
-      - name: Initialize Gradle project
-        run: gradle init --type basic --dsl 
       - name: Build APK (debug)
-        run: |
-          mkdir -p app/build/outputs/apk/debug
-          echo "Simulated APK build for mobile workflow" > app/build/outputs/apk/debug/SixStringBootCamp.apk
+        run: gradle assembleDebug
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: SixStringBootCamp
-          path: app/build/outputs/apk/debug/SixStringBootCamp.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
