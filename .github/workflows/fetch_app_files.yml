@@ -1,0 +1,28 @@
+name: Fetch and Unpack SixString Boot Camp Files
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download app ZIP from Google Drive
+        run: |
+          file_id="1YebgA4n3021jTBpjgFr2Fvr8vC6IGcIJ"
+          file_name="SixStringBootCamp_live_package.zip"
+          curl -L "https://drive.usercontent.google.com/download?id=${file_id}&export=download" -o "$file_name"
+
+      - name: Unzip the app files
+        run: unzip -o SixStringBootCamp_live_package.zip -d .
+
+      - name: Commit unpacked files back to repo
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Auto-added SixString Boot Camp app files" || echo "No changes to commit"
+          git push
