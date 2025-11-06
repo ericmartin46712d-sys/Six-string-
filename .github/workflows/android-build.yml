@@ -2,9 +2,9 @@ name: Android Build
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   build:
@@ -20,16 +20,28 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Install Gradle
-        run: sudo apt-get install gradle -y
+      - name: Install unzip
+        run: sudo apt-get install unzip -y
+
+      - name: Unzip project
+        run: |
+          echo "Unzipping SixStringBootCamp project..."
+          unzip -o "SixStringBootCamp_live_package (1).zip" -d project
+          echo "Listing project folder structure:"
+          ls -R project
 
       - name: Build APK (debug)
         run: |
-          cd app
-          gradle assembleDebug
+          echo "Finding Gradle wrapper..."
+          cd project
+          GRADLEW_PATH=$(find . -name "gradlew" | head -n 1)
+          echo "Gradle wrapper found at: $GRADLEW_PATH"
+          cd "$(dirname "$GRADLEW_PATH")"
+          chmod +x gradlew
+          ./gradlew assembleDebug
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: SixStringBootCamp
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: project/**/build/outputs/apk/debug/*.apk
