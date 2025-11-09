@@ -70,4 +70,3 @@ jobs:
           cd "$(dirname "$GRADLEW_PATH")"
           chmod +x gradlew
           ./gradlew assembleDebug
-
