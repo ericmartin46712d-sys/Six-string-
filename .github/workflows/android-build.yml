@@ -1,39 +1,4 @@
-hiname: Android Build
 
-on:
-  push:
-    branchesname: Android Build
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    # 1. Checkout code
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    # 2. Set up Java
-    - name: Set up JDK 11
-      uses: actions/setup-java@v4
-      with:
-        distribution: temurin
-        java-version: 11
-
-    # 3. Display Gradle wrapper info
-    - name: Find Gradle wrapper
-      run: |
-        echo "Finding Gradle wrapper..."
-        ls -la Six-string-/
-        chmod +x Six-string-/gradlew
-
-    # 4. Build using Gradle wrapper
     - name: Build with Gradle Wrapper
       run: cd Six-string- && ./gradlew assembleDebug [ main ]
   pull_request:
@@ -73,8 +38,3 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug
 
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: SixStringBootCamp
-          path: project/**/build/outputs/apk/debug/*.apk
