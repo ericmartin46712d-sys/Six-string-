@@ -4,12 +4,11 @@ on:
     branches:
       - main
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
+steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -23,11 +22,11 @@ jobs:
         run: chmod +x gradlew
 
       - name: Decode and save keystore
-        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | 
-base64 --decode > release.keystore 
-
--name:Build signed release APK and AAB
         run: |
+         echo "${{ secrets.KEYSTORE_BASE64 }}" | base64  --decode > release.keystore 
+     
+     -name: Build signed release APK and AAB
+       run:|
           ./gradlew assembleRelease bundleRelease \
             -Pandroid.injected.signing.store.file=release.keystore \
             -Pandroid.injected.signing.store.password=${{ secrets.KEYSTORE_PASSWORD }} \
@@ -39,8 +38,8 @@ base64 --decode > release.keystore
         with:
           name: SixStringBootCamp-APK
           path: app/build/outputs/apk/release/*.apk
-
-      - name: Upload AAB artifact
+          
+          - name: Upload AAB artifact
         uses: actions/upload-artifact@v3
         with:
           name: SixStringBootCamp-AAB
