@@ -4,6 +4,7 @@ on:
     branches:
       - main
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,10 +24,11 @@ steps:
 
       - name: Decode and save keystore
         run: |
-         echo "${{ secrets.KEYSTORE_BASE64 }}" | base64  --decode > release.keystore 
+         echo "${{ secrets.KEYSTORE_BASE64 }}" | 
+         base64  --decode > release.keystore 
      
      -name: Build signed release APK and AAB
-       run:|
+      run:|
           ./gradlew assembleRelease bundleRelease \
             -Pandroid.injected.signing.store.file=release.keystore \
             -Pandroid.injected.signing.store.password=${{ secrets.KEYSTORE_PASSWORD }} \
