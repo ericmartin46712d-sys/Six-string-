@@ -1,4 +1,4 @@
-name: Build Six-String Boot Camp Release
+-name: Build Six-String Boot Camp Release
 on:
   push:
     branches:
@@ -24,7 +24,6 @@ jobs:
 
       - name: Decode and save keystore
         run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > release.keystore
-
       - name: Build signed release APK and AAB
         run: |
           ./gradlew assembleRelease bundleRelease \
