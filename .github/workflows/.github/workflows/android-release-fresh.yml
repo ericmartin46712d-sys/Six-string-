@@ -1,5 +1,4 @@
 name: Build Six-String Boot Camp Release
-
 on:
   push:
     branches:
