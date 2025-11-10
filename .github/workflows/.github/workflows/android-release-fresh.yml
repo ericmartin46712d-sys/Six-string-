@@ -1,9 +1,9 @@
--name: Build Six-String Boot Camp Release
+name: Build Six-String Boot Camp Release
 on:
-  push:
-    branches:
+ push:
+  branches:
       - main
-  workflow_dispatch:
+      workflow_dispatch:
 
 jobs:
   build:
@@ -27,6 +27,7 @@ jobs:
       - name: Build signed release APK and AAB
         run: |
           ./gradlew assembleRelease bundleRelease \
+          
             -Pandroid.injected.signing.store.file=release.keystore \
             -Pandroid.injected.signing.store.password=${{ secrets.KEYSTORE_PASSWORD }} \
             -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }} \
